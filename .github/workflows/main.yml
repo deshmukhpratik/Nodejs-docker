@@ -5,22 +5,6 @@ on:
     branches:
       - master
 
-jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Login to AWS ECR
-        run:
-          name: Build and Push Docker Image
-
-on:
-  push:
-    branches:
-      - main
 
 jobs:
   build-and-push:
@@ -43,20 +27,11 @@ jobs:
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/o8z0z7z0
 
       - name: Build Docker image
-        run: docker build -t my-image .
+        run: docker build -t test .
 
       - name: Tag Docker image
-        run: docker tag my-image:latest public.ecr.aws/my-image:latest
+        run: docker tag test:latest public.ecr.aws/o8z0z7z0/test:latest
 
       - name: Push Docker image to ECR
-        run: docker push public.ecr.aws/my-image:latest
-0
-
-      - name: Build Docker image
-        run: docker build -t node .
-
-      - name: Tag Docker image
-        run: docker tag node:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/test:latest
-
-      - name: Push Docker image to ECR
-        run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/test:latest
+        run: ddocker push public.ecr.aws/o8z0z7z0/test:latest
+        
