@@ -1,6 +1,6 @@
 {
   "name": "node-app",
-  "description": "Nodeapp for CICD test",
+  "description": "Nodeapp for CICD test---test",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
