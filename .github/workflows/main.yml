@@ -43,7 +43,7 @@ jobs:
         env:
           # registry url, will take automatically from login output 
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: repository-name-which-you-created-on-console
+          ECR_REPOSITORY: test
           IMAGE_TAG: image-tag-name
         run: |
           # build image
