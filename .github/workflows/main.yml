@@ -39,12 +39,25 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
+
+      # SSH into remote server and perform additional tasks
+      - name: SSH into remote server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            # Add your commands here to execute on the remote server
+
+
       - name: Build, tag, and push image to Amazon ECR
         env:
           # registry url, will take automatically from login output 
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: test
-          IMAGE_TAG: image-tag-name
+          IMAGE_TAG: v1
         run: |
           # build image
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .         
