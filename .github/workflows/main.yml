@@ -29,6 +29,7 @@ jobs:
     - name: Build and push Docker image to ECR
       run: |
         docker build -t ${{ secrets.AWS_ECR_REGISTRY }}/${{ secrets.ECR_REPO_NAME }}:${{ github.sha }} .
+        aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/n9s1r1u3
         docker push ${{ secrets.AWS_ECR_REGISTRY }}/${{ secrets.ECR_REPO_NAME }}:${{ github.sha }}
 
     # Deploy image from ECR to EKS
